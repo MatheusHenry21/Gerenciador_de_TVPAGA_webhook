@@ -1,3 +1,4 @@
+
 from data.dbCreate.database import resgatar
 
 def check_unique_celular(valor):

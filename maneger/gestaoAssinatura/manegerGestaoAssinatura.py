@@ -3,9 +3,9 @@ from dateutil.relativedelta import relativedelta
 from datetime import datetime
 
 from moldels.moldeContato import TestesTransferencia
-from moldels.moldeContato import info_cliente_teste, info_clientes_vencido_efetivos, info_clientes_vencido_teste, info_cliente_efetivo
-from data.dao.efetivosDAO import add_efetivos, clientes_vencidos_efetivos, renovar_assinatura_resgatar, listar_efetivos, renovar_assinatura_salvar, buscar_cliente_efetivo_id
-from data.dao.testesDAO import listar_testes, buscar_cliente_teste_id, remover_testes, clientes_vencidos_teste
+from moldels.moldeContato import info_clientes_vencido_efetivos, info_clientes_vencido_teste
+from data.dao.efetivosDAO import add_efetivos, clientes_vencidos_efetivos, renovar_assinatura_resgatar, renovar_assinatura_salvar, buscar_cliente_efetivo_id
+from data.dao.testesDAO import buscar_cliente_teste_id, remover_testes, clientes_vencidos_teste
 from data.dao.utilDAO import existencia_id_teste, existencia_id_efetivos
 from maneger.exceptions.exceptions_routers import IdExistenteError
 
