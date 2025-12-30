@@ -15,7 +15,7 @@ def submenu_gestao_cliente(phone: str):
 Digite o índice da opção."""
     )
 
-def submenu_add(phone: str):
+def submenu2_add(phone: str):
     envia_msg(
         phone,
         """ADICIONAR CLIENTES
@@ -26,7 +26,18 @@ def submenu_add(phone: str):
 Digite o índice da opção."""
     )
 
-def submenu_buscar(phone: str):
+def submenu2_listar(phone: str):
+    envia_msg(
+        phone,
+        """LISTAR CLIENTE
+1 - Listar cliente efetivo
+2 - Listar cliente teste
+3 - Voltar
+
+Digite o índice da opção."""
+    )
+
+def submenu2_buscar(phone: str):
     envia_msg(
         phone,
         """ADICIONAR CLIENTES
@@ -40,7 +51,7 @@ def submenu_buscar(phone: str):
 Digite o índice da opção."""
     )
 
-def submenu_atualizar(phone: str):
+def submenu2_atualizar(phone: str):
     envia_msg(
         phone,
         """ATUALIZAR CLIENTE
@@ -51,12 +62,12 @@ def submenu_atualizar(phone: str):
 Digite o índice da opção."""
     )
 
-def submenu_remover(phone: str):
+def submenu2_remover(phone: str):
     envia_msg(
         phone,
-        """ATUALIZAR CLIENTE
-1 - Remove cliente efetivo
-2 - Remove cliente testes
+        """REMOVER CLIENTE
+1 - Remover cliente efetivo
+2 - Remover cliente teste
 3 - Voltar
 
 Digite o índice da opção."""

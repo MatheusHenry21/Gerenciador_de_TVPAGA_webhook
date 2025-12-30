@@ -5,6 +5,7 @@ def submain_configuracoes(phone: str):
     envia_msg(
         phone,
         """CONFIGURAÇÕES
+
 1 - Resetar sistema
 2 - Voltar
 
@@ -19,5 +20,6 @@ Você tem certeza que deseja RESETAR o sistema?
 
 1 - SIM
 2 - NÃO
-"""
+
+Digite o índice da opção."""
     )
