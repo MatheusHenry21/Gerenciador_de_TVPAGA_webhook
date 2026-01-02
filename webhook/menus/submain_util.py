@@ -10,9 +10,8 @@ from handlers.data.DAO import (
     update_id
 )
 
-etapa = select_etapa()
-
-def submain2_nome(phone, text):
+def sub_handler2_nome(phone, text):
+    etapa = select_etapa(phone)
     estapaAtual = etapa[4]
     if estapaAtual is None:
         envia_msg(
@@ -20,10 +19,11 @@ def submain2_nome(phone, text):
             '''Digite o nome da pessoa
         ''')
         return
-    name = update_name(phone, text)
-    return name
+    update_name(phone, text)
+    return 
 
-def submain2_celular(phone, text):
+def sub_handler2_celular(phone, text):
+    etapa = select_etapa(phone)
     estapaAtual = etapa[5]
     if estapaAtual is None:
         envia_msg(
@@ -31,10 +31,11 @@ def submain2_celular(phone, text):
             '''Digite o celular da pessoa
         ''')
         return
-    cllr = update_phone(phone, text)
-    return cllr
+    update_phone(phone, text)
+    return
 
-def submain2_id(phone, text):
+def sub_handler2_id(phone, text):
+    etapa = select_etapa(phone)
     estapaAtual = etapa[6]
     if estapaAtual is None:
         envia_msg(
@@ -43,8 +44,8 @@ def submain2_id(phone, text):
         ''')
         return
     
-    id = update_id(phone, text)
-    return id
+    update_id(phone, text)
+    return
 
 def voltar_menu(phone):
     resetar_etapas_handler(phone)

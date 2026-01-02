@@ -4,7 +4,7 @@ from fastapi import (
     Request,
     Response
     )
-from webhook.handler.handler_whatsapp import handler_main
+from handlers.handler_whatsapp import handler_main
 
 router = APIRouter()
 
