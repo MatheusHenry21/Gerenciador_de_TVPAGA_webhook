@@ -1,6 +1,5 @@
 
-class NomeVazio(Exception):
-    pass
+from webhook.services.whatsapp_client import envia_msg
 
 class NumeroExistenteError(Exception):
     pass
@@ -9,4 +8,10 @@ class DadosExistenteError(Exception):
     pass
 
 class IdExistenteError(Exception):
+    pass
+
+class QuantidadeNumero(Exception):
+    pass
+
+class CelularInvalido(Exception):
     pass

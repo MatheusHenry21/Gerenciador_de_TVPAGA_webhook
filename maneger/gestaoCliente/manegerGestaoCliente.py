@@ -15,12 +15,12 @@ from maneger.exceptions.exceptions_routers import (
 def cadastrar_efetivos(nome, celular):
     novoCliente = Efetivos(nome, celular)
     add_efetivos(novoCliente.nome, novoCliente.celular, novoCliente.cadastro, novoCliente.vencimento)
-    return {"msg": f"Contato '{novoCliente.nome}'adicionado aos efetivos"}
+    return {"msg": f"O cliente '{novoCliente.nome}'adicionado aos efetivos."}
 
 def cadastrar_testes(nome, celular):         
     novoCliente = Testes(nome, celular)
     add_testes(novoCliente.nome, novoCliente.celular, novoCliente.cadastro, novoCliente.fimTeste)     
-    return {"msg": f"Contato '{novoCliente.nome}' adicionado aos testes"}
+    return {"msg": f"O cliente '{novoCliente.nome}' adicionado aos testes."}
 
 
 #####################################################################################

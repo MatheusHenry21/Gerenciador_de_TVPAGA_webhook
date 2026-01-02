@@ -6,4 +6,4 @@ def resetar_banco():
     if not situacao:
         return []
     excluir_bancos_efetivos_testes()
-    return{"msg": "Ação executada com sucesso!"}
+    return "Sistema resetado com sucesso!"
