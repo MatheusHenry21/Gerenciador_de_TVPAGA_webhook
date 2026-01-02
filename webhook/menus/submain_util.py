@@ -12,20 +12,20 @@ from handlers.data.DAO import (
 
 def sub_handler2_nome(phone, text):
     etapa = select_etapa(phone)
-    estapaAtual = etapa[4]
-    if estapaAtual is None:
+    etapaAtual = etapa[4]
+    if etapaAtual is None:
         envia_msg(
             phone,
             '''Digite o nome da pessoa
         ''')
         return
     update_name(phone, text)
-    return 
+    return
 
 def sub_handler2_celular(phone, text):
     etapa = select_etapa(phone)
-    estapaAtual = etapa[5]
-    if estapaAtual is None:
+    etapaAtual = etapa[5]
+    if etapaAtual is None:
         envia_msg(
             phone,
             '''Digite o celular da pessoa
@@ -36,14 +36,14 @@ def sub_handler2_celular(phone, text):
 
 def sub_handler2_id(phone, text):
     etapa = select_etapa(phone)
-    estapaAtual = etapa[6]
-    if estapaAtual is None:
+    etapaAtual = etapa[6]
+    if etapaAtual is None:
         envia_msg(
             phone,
             '''Digite o ID da pessoa
         ''')
         return
-    
+
     update_id(phone, text)
     return
 

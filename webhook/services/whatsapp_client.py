@@ -1,8 +1,9 @@
 
+import os
 import requests
 
-TOKEN = "cor2025"
-PHONE_ID = 123
+TOKEN = os.getenv("TOKEN", "cor2025")
+PHONE_ID = os.getenv("PHONE_ID", "123")
 
 def envia_msg(telefone, texto):
 
