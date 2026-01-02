@@ -5,7 +5,8 @@ from data.dbCreate.database import(
     tabela_clientes_efetivos,
     tabela_clientes_testes
     )
-from routers.webhook.webhook_whatsap import router as mainPrincipal
+from handlers.data.table_sequencia import create_table_sequent
+from webhook.webhook_whatsapp import router as mainPrincipal
 
 app = FastAPI()
 
@@ -13,6 +14,7 @@ app = FastAPI()
 def criar_banco():
     tabela_clientes_efetivos()
     tabela_clientes_testes()
+    create_table_sequent()
 
 app.include_router(
     mainPrincipal,
