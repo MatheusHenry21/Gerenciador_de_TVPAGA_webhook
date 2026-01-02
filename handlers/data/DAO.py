@@ -1,10 +1,9 @@
 
 from handlers.data.table_sequencia import create_table_sequent as resgatar
 
-db = resgatar()
-sql = db.cursor()
-
 def select_etapa(phone):
+    db = resgatar()
+    sql = db.cursor()
     sql.execute('''
         SELECT *
         FROM status_conversa
@@ -16,6 +15,8 @@ def select_etapa(phone):
     return data
 
 def update_main(phone, etapa):
+    db = resgatar()
+    sql = db.cursor()
     sql.execute('''
         UPDATE status_conversa
         SET main = ?
@@ -24,7 +25,10 @@ def update_main(phone, etapa):
     )
     db.commit()
     db.close()
+
 def update_submain(phone, etapa):
+    db = resgatar()
+    sql = db.cursor()
     sql.execute('''
         UPDATE status_conversa
         SET submain = ?
@@ -35,6 +39,8 @@ def update_submain(phone, etapa):
     db.close()
 
 def update_submain2(phone, etapa):
+    db = resgatar()
+    sql = db.cursor()
     sql.execute('''
         UPDATE status_conversa
         SET submain2= ?
@@ -45,6 +51,8 @@ def update_submain2(phone, etapa):
     db.close()
 
 def update_name(phone, name):
+    db = resgatar()
+    sql = db.cursor()
     sql.execute('''
         UPDATE status_conversa
         SET nome = ?
@@ -55,6 +63,8 @@ def update_name(phone, name):
     db.close()
 
 def update_phone(phone, cll):
+    db = resgatar()
+    sql = db.cursor()
     sql.execute('''
         UPDATE status_conversa
         SET celular = ?
@@ -65,6 +75,8 @@ def update_phone(phone, cll):
     db.close()
 
 def update_id(phone, id):
+    db = resgatar()
+    sql = db.cursor()
     sql.execute('''
         UPDATE status_conversa
         SET id = ?
@@ -75,6 +87,8 @@ def update_id(phone, id):
     db.close()
 
 def resetar_etapas_handler(phone):
+    db = resgatar()
+    sql = db.cursor()
     sql.execute('''
         UPDATE status_conversa
         SET main = NULL,

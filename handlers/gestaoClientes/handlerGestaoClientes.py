@@ -59,15 +59,15 @@ def handler_gestao_gestao(phone, text):
         update_submain(phone, estadoNovo)
 
         if estadoNovo == "ADICIONAR":
-            sub_handler2_add(phone, text) #
+            sub_handler2_add(phone, text) 
         elif estadoNovo == "LISTAR":
-            sub_handler2_read(phone, text) #
+            sub_handler2_read(phone, text) 
         elif estadoNovo == "BUSCAR":
-            sub_handler_buscar(phone, text) #
+            sub_handler_buscar(phone, text) 
         elif estadoNovo == "ATUALIZAR":
             sub_handler2_update(phone, text)
         elif estadoNovo == "REMOVER":
-            sub_handler2_delete(phone, text) #
+            sub_handler2_delete(phone, text) 
         elif estadoNovo == "VOLTAR":
             voltar_menu(phone)
         return
@@ -79,20 +79,20 @@ def sub_handler2_add(phone, text):
         "3": "VOLTAR"
     }
 
-    etapa = select_etapa(etapa)
-    estadoAtual = etapa[2]
+    etapa = select_etapa(phone)
+    estadoAtual = etapa[3]
 
     if estadoAtual is None:
         if text not in SUBMAIN2:
             submenu2_add(phone)
             return
-        
+
         estadoNovo = SUBMAIN2[text]
         update_submain2(phone, estadoNovo)
 
         nome = etapa[4]
         if nome is None:
-            sub_handler2_celular(phone, text)
+            sub_handler2_nome(phone, text)
             return
         celular = etapa[5]
         if celular is None:
@@ -100,14 +100,14 @@ def sub_handler2_add(phone, text):
             return
 
         if estadoNovo == "EFETIVO":
-            try: 
+            try:
                 envia_msg(
                     phone,
                     cadastrar_efetivos(nome, celular)
                 )
             except NumeroExistenteError:
                 pass
-            
+
         elif estadoNovo == "TESTE":
             try:
                 envia_msg(
@@ -164,47 +164,77 @@ def sub_handler2_update(phone, text):
     }
 
     etapa = select_etapa(phone)
-    estadoAtual = etapa[2]
+    estadoAtual = etapa[3]
 
     if estadoAtual is None:
         if text not in SUBMAIN2:
             submenu2_atualizar(phone)
             return
-        
+
         estadoNovo = SUBMAIN2[text]
         update_submain2(phone, estadoNovo)
 
+        id = etapa[6]
+        if id is None:
+            sub_handler2_id(phone, text)
+            return
+
+        nome = etapa[4]
+        if nome is None:
+            sub_handler2_nome(phone, text)
+            return
+        celular = etapa[5]
+        if celular is None:
+            sub_handler2_celular(phone, text)
+            return
+
         if estadoNovo == "EFETIVO":
-            pass
+            try:
+                envia_msg(
+                    phone,
+                    atualizar_efetivo(id, nome, celular)
+                )
+            except IdExistenteError:
+                pass
+            resetar_etapas_handler(phone)
+
         elif estadoNovo == "TESTE":
-            pass
+            try:
+                envia_msg(
+                    phone,
+                    atualizar_teste(id, nome, celular)
+                )
+            except IdExistenteError:
+                pass
+            resetar_etapas_handler(phone)
+
         elif estadoNovo == "VOLTAR":
             voltar_menu(phone)
         return
 
 def sub_handler2_delete(phone, text):
     SUBMAIN2 = {
-    "1": "EFETIVO",
-    "2": "TESTE",
-    "3": "VOLTAR"
-}
+        "1": "EFETIVO",
+        "2": "TESTE",
+        "3": "VOLTAR"
+    }
 
     etapa = select_etapa(phone)
-    estadoAtual = etapa[2]
+    estadoAtual = etapa[3]
 
     if estadoAtual is None:
         if text not in SUBMAIN2:
             submenu2_remover(phone)
             return
-        
+
         estadoNovo = SUBMAIN2[text]
         update_submain2(phone, estadoNovo)
 
         id = etapa[6]
         if id is None:
-            submain2_id(phone, text)
+            sub_handler2_id(phone, text)
             return
-        
+
         if estadoNovo == "EFETIVO":
             try:
                 envia_msg(
@@ -213,7 +243,7 @@ def sub_handler2_delete(phone, text):
                 )
             except IdExistenteError:
                 pass
-            
+
         elif estadoNovo == "TESTE":
             try:
                 envia_msg(
@@ -227,28 +257,4 @@ def sub_handler2_delete(phone, text):
             voltar_menu(phone)
         return
 
-def atualizar_cliente_efetivo(id, nome, celular):
-    try:
-        return {"msg": atualizar_efetivo(
-            informacoes.id,
-            informacoes.nome,
-            informacoes.celular
-            )}
-    except IdExistenteError as e:
-        id_existente_error(e)
-    except NumeroExistenteError as e:
-        numero_existente_error(e)
 
-
-@router.put("/atualizar_teste")
-def atualizar_cliente_teste(informacoes: AtualizarCliente):
-    try:
-        return {"msg": atualizar_teste(
-            informacoes.id,
-            informacoes.nome,
-            informacoes.celular
-            )}
-    except IdExistenteError as e:
-        id_existente_error(e)
-    except NumeroExistenteError as e:
-        numero_existente_error(e)

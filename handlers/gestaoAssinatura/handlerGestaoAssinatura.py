@@ -5,7 +5,7 @@ from webhook.menus.main_gestaoAssinatura import (
     submenu_assinatura,
     submenu2_assinatura,
     )
-from webhook.menus.submain_util import submain2_id
+from webhook.menus.submain_util import sub_handler2_id
 from maneger.exceptions.exceptions_routers import IdExistenteError
 from maneger.gestaoAssinatura.manegerGestaoAssinatura import(
     converter_teste_para_efetivo,
@@ -45,7 +45,7 @@ def handler_gestao_assinatura(phone, text):
             sub_holder_vencidos(phone, text)
         elif novoEstado == "RENOVAR ASSINATURA":
             try:
-                id = submain2_id(phone, text)
+                id = sub_handler2_id(phone, text)
                 envia_msg(
                     phone,
                     renovar_assinatura(id)
@@ -57,7 +57,7 @@ def handler_gestao_assinatura(phone, text):
             id = update_id(phone, text)
         elif novoEstado == "CONVERTER_CLIENTE":
             try:
-                id = submain2_id(phone, text)
+                id = sub_handler2_id(phone, text)
                 envia_msg(
                     phone,
                     converter_teste_para_efetivo(id)
@@ -72,6 +72,54 @@ def handler_gestao_assinatura(phone, text):
 
 
 
+def sub_handler_renovar(phone, text):
+    etapa = select_etapa(phone)
+    estadoAtual = etapa[2]
+
+    if estadoAtual is None:
+        update_submain(phone, "RENOVAR ASSINATURA")
+        sub_handler2_id(phone, text)
+        return
+
+    id = etapa[6]
+    if id is None:
+        sub_handler2_id(phone, text)
+        return
+
+    try:
+        envia_msg(
+            phone,
+            renovar_assinatura(id)
+        )
+        resetar_etapas_handler(phone)
+    except IdExistenteError:
+        envia_msg(phone, "ID não encontrado.")
+        resetar_etapas_handler(phone)
+
+def sub_handler_converter(phone, text):
+    etapa = select_etapa(phone)
+    estadoAtual = etapa[2]
+
+    if estadoAtual is None:
+        update_submain(phone, "CONVERTER_CLIENTE")
+        sub_handler2_id(phone, text)
+        return
+
+    id = etapa[6]
+    if id is None:
+        sub_handler2_id(phone, text)
+        return
+
+    try:
+        envia_msg(
+            phone,
+            converter_teste_para_efetivo(id)
+        )
+        resetar_etapas_handler(phone)
+    except IdExistenteError:
+        envia_msg(phone, "ID não encontrado.")
+        resetar_etapas_handler(phone)
+
 def sub_holder_vencidos(phone, text):
     SUBMAIN2 = {
         "1": "CLIENTES_EFETIVOS",
@@ -80,13 +128,13 @@ def sub_holder_vencidos(phone, text):
     }
 
     estado = select_etapa(phone)
-    novoEstado = estado[1]
+    novoEstado = estado[2]
 
     if novoEstado is None:
-        if text is not SUBMAIN2:
+        if text not in SUBMAIN2:
             submenu2_assinatura(phone)
             return
-        
+
         novoEstado = SUBMAIN2[text]
         update_submain2(phone, novoEstado)
 
@@ -96,14 +144,14 @@ def sub_holder_vencidos(phone, text):
                 f"Clientes vencidos: {clientes_vencidos_efeti()}"
                 )
             resetar_etapas_handler(phone)
-        
+
         elif novoEstado == "CLIENTES_TESTES":
             envia_msg(
                 phone,
                 f"Clientes vencidos: {clientes_vencidos_tes()}"
                 )
             resetar_etapas_handler(phone)
-        
+
         elif novoEstado == "VOLTAR":
             voltar_menu(phone)
 
