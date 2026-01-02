@@ -14,5 +14,4 @@ def dados_atualizar(nome, celular):
     if novo_nome is None and novo_celular is None:
         return None
 
-    nome = nome.title()
     return [novo_nome, novo_celular]
